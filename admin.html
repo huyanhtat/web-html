@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="authors" content="NHÓM 13">
+    <meta name="description" content="đây là bài tập đồ án tạo web BÁN LINH KIỆN ĐIỆN TỬ như chuột, bàn phím, tai nghe,... .">
+    <title>Admin</title>
+    <link rel="icon" href="../assets/img/websiteIcon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/card-products.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/order-form.css" />
+    <link rel="stylesheet" href="./assets/css/menu-product.css" />
+    <link rel="stylesheet" href="./assets/css/navigation.css">
+    <link rel="stylesheet" href="./assets/css/add-product-table.css">
+    <link rel="stylesheet" href="./assets/css/edit-product-table.css">
+    <link rel="stylesheet" href="./assets/css/edit-account-table.css">
+    <link rel="stylesheet" href="./assets/css/delete-product-table.css">
+    <link rel="stylesheet" href="./assets/css/switch-button.css">
+    <link rel="stylesheet" href="./assets/css/order-product-table.css">
+    <link rel="stylesheet" href="./assets/css/account-manager-table.css">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/Statistical-table.css">
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+      <!-- account manage table -->
+
+      <div class="account-container" onclick="closeAccountProductTable()">
+        
+      </div>
+      
+    <!-- add products -->
+    <div class="add-product-container" onclick="closeAddProductTable(event)">
+      
+        <form class="add-product-table" onclick="stopPropagate(event)" onsubmit="addProductToProductArray(event)">
+          <div class="exit-add-product-table" onclick="closeAddProductTable()">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+            <div class="title">THÊM SẢN PHẨM</div>
+            <label for="type">LOẠI: </label>
+            <select name="productType" id="select-type">
+              <option value="keyboard">BÀN PHÍM</option>
+              <option value="headphone">TAI NGHE</option>
+              <option value="mouse">CHUỘT</option>
+              <option value="speaker">LOA</option>
+              <option value="laptop">LAPTOP</option>
+            </select>
+            <label for="productName">TÊN SẢN PHẨM:</label>
+            <input type="text" name="productName" id="productName" value="" placeholder="Keyboard haha" required autofocus>
+            <label for="productDescription">MÔ TẢ SẢN PHẨM:</label>
+            <input type="text" name="productDescription" id="productDescription" value="" placeholder="keyboard for gamer" required>
+            <label for="productImage">HÌNH ẢNH:</label>  
+            <input type="file" name="productImage" id="productImage" value="" required>
+            <label for="productPrice">GIÁ</label>
+            <input type="number" name="productPrice" id="productPrice" value="" placeholder="999 999" required>  
+            <label for="productQuantity">SỐ LƯỢNG THÊM:</label>
+            <input type="number" name="productQuantity" id="productQuantity" value="" placeholder="10" required>  
+            <div class="save-product-btn">
+              <button type="submit">LƯU</button>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- edit table -->
+
+    <div class="edit-product-container" onclick="closeEditProductTable(event)">
+      
+        <form class="edit-product-table" onclick="stopPropagate(event)" onsubmit="editProductToProductArray(event)">
+          <div class="exit-edit-product-table" onclick="closeEditProductTable()">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+            <div class="title">CHỈNH SỬA SẢN PHẨM</div>
+            <label for="type">LOẠI: </label>
+            <select name="productType" id="select-type-edit">
+              <option value="keyboard">Bàn phím</option>
+              <option value="headphone">Tai nghe</option>
+              <option value="mouse">Chuột</option>
+              <option value="speaker">Loa</option>
+              <option value="laptop">Laptop</option>
+            </select>
+            <label for="productName">Tên:</label>
+            <input type="text" name="productName" id="productNameEdit" value="" placeholder="Keyboard haha" autofocus>
+            <label for="productDescription">Chi tiết:</label>
+            <input type="text" name="productDescription" id="productDescriptionEdit" value="" placeholder="keyboard for gamer">
+            <label for="productImage">Link hình:</label>  
+            <input type="file" id="productImageEdit" value="" placeholder="link image here" required>
+            <label for="productPrice">Giá</label>
+            <input type="number" name="productPrice" id="productPriceEdit" value="" placeholder="999 999">              
+            <input type="number" name="productId" value="" id="productId" style="display: none;">
+            <div class="save-product-btn">
+              <button type="submit">LƯU</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- edit account -->
+    <div class="edit-account-container" onclick="closeEditAccountTable(event)">
+      
+      <form class="edit-account-table" onclick="stopPropagate(event)" onsubmit="editAccountToAccountArray(event)">
+        <div class="exit-edit-account-table" onclick="closeEditAccountTable()">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+          <div class="title">CHỈNH SỬA TÀI KHOẢN</div>
+          <label for="accountName">Tên tài khoản: </label>
+          <input type="text" name="accountName" id="accountName" value="" placeholder="hackiemsi" autofocus>
+          <label for="accountPassword">Mật khẩu: </label>
+          <input type="text" name="accountPassword" id="accountPassword" value="">             
+          <label for="accountTel">Số điện thoại: </label>
+          <input type="text" name="accountTel" id="accountTel" value="" placeholder="0969696969">             
+          <label for="accountMail">Email: </label>
+          <input type="text" name="accountMail" id="accountMail" value="" placeholder="hackiemsi@gmail.com">             
+
+          <input type="number" name="accountId" value="" id="accountId" style="display: none;">
+          <div class="save-account-btn">
+            <button type="submit">LƯU</button>
+          </div>
+      </form>
+
+  </div>
+
+<!-- Card products -->
+    <!-- <div class="card-products">
+      
+      <div class="menu" id="menu">
+        <div class="menu-title">Danh mục sản phẩm</div>
+        
+        <div class="menu-items activeMenuItems" id="item-1" onclick="activeItem(1)">
+          <a  href="#product-display" class="overlay activeMenuItemOverlay " onclick="filterProductAdmin('keyboard') " ></a>
+          <img class="menu-items-img activeMenuItemImg" src="./assets/img/keyboard.jpg" alt="keyboard image" loading="lazy">
+        </div>
+  
+        <div class="menu-items" id="item-2">
+          <a  href="#product-display" class="overlay" onclick="filterProductAdmin('headphone')"></a>
+          <img class="menu-items-img" src="./assets/img/headphone.png" alt="keyboard image" loading="lazy">
+        </div>
+  
+        <div class="menu-items" id="item-3">
+          <a  href="#product-display" class="overlay" onclick="filterProductAdmin('mouse')"></a>
+          <img class="menu-items-img" src="./assets/img/mouse.png" alt="keyboard image" loading="lazy">
+        </div>
+  
+        <div class="menu-items" id="item-4">
+          <a  href="#product-display" class="overlay" onclick="filterProductAdmin('speaker')"></a>
+          <img class="menu-items-img" src="./assets/img/speaker.png" alt="keyboard image" loading="lazy">
+        </div>
+  
+        <div class="menu-items" id="item-5">
+          <a  href="#product-display" class="overlay" onclick="filterProductAdmin('Laptop')"></a>
+          <img class="menu-items-img" src="./assets/img/mousepads.png" alt="keyboard image" loading="lazy">
+        </div>
+      </div>
+
+      
+
+      <div class="card-products-container"> -->
+        
+        <!-- <div class="card-product-item" id="${product.id}" onclick="productInfomation()">
+          <img
+            class="card-img"
+            src="${product.img}"
+          />
+          <div class="card-product-content">
+            <div class="card-product-content-top">
+              <div class="card-product-content-title card-title">
+                ${product.name}
+              </div>
+              <div class="label-card-title card-title">${product.description}</div>
+            </div>
+            <div class="card-product-content-bottom">
+  
+            
+  
+            <div class="card-product-content-bottom-buying">
+              <div class="card-product-content-bottom-buying-price">
+                <span class="card-product-priceNumber">${product.price}</span> 
+                <span class="card-product-priceIcon">₫</span>
+              </div>
+              <div class="card-product-status">
+                Còn hàng
+                <i class="fa-solid fa-check icon-check-status"></i>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="menu-card-products-page-number"> -->
+          <!-- <div class="pageNumber" onclick="pageRender(1)"></div>
+          <div class="pageNumber" onclick="pageRender(2)">2</div>
+          <div class="pageNumber" onclick="pageRender(3)">3</div>  -->
+        <!-- </div> 
+      </div>
+    </div> -->
+  <div class="main-wrapper">
+
+    <div class="nav-header-left">
+      <div class="nav-header-left-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Cyberpunk_2077_logo.svg/2560px-Cyberpunk_2077_logo.svg.png" alt="">
+      </div>
+      
+      <ul class="nav-header-left-list">
+        <li class="nav-header-left-list-item active-nav-header-left-list-item" id="nav-header-left-list-products-management" onclick="renderProductManage();holdColorMenuInAdmin(this)">
+          <div class="nav-header-left-list-products-management">
+            <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+            <span>
+              Quản lý sản phẩm
+            </span> 
+          </div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </li>
+
+
+        <li class="nav-header-left-list-item" id="nav-header-left-list-user-management" onclick="openAccountManageTable();holdColorMenuInAdmin(this)">
+          <div class="nav-header-left-list-user-management">
+            <i class="fa-solid fa-users"></i>
+            <span>
+              Quản lý khách hàng
+            </span> 
+          </div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </li>
+
+
+        <li class="nav-header-left-list-item" id="nav-header-left-list-order-form-management" onclick="openOrderManageTable();holdColorMenuInAdmin(this)">
+          <div class="nav-header-left-list-order-form-management">
+            <i class="fa-solid fa-receipt"></i>
+            <span>
+              Quản lý đơn hàng
+            </span> 
+          </div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </li>
+
+        <li class="nav-header-left-list-item" id="nav-header-left-list-business-statistics" onclick="holdColorMenuInAdmin(this);openStatistical()">
+          <div class="nav-header-left-list-business-statistics">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <span>
+              Thống kê doanh thu
+            </span> 
+          </div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </li>
+      </ul>
+      
+    </div>
+    <div class="container">
+      <div class="container-header">
+        <div class="container-header-navigation" id="container-header-navigation">
+          <div class="container-header-navigation-icon-menu container-header-navigation-icon-menu-shrink" onclick="shrinkMenuInAdmin()">
+            <i class="fa-solid fa-arrow-left-long"></i>
+          </div>
+          <div class="container-header-navigation-icon-menu container-header-navigation-icon-menu-zoomIn" onclick="zoomInMenuInAdmin()">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </div>
+          <form onsubmit="searchEngineAdmin(event)" oninput="searchEngineAdmin(event)" id="search_box" class="container-header-navigation-search-box">
+            <input
+              type="search"
+              id="search_text"
+              placeholder="Bạn muốn tìm gì !!!!"
+              value=""
+            />
+            <button type="submit" href="#product-display" id="search_button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <div class="dropdown container-header-navigation-dropdown">
+              <div class="dropdown-select container-header-navigation-dropdown-select">
+                <i class="fa fa-user dropdown-user"></i>
+                <span class="dropdown-select container-header-navigation-dropdown-select-text">My Account</span>
+                <i class="fa fa-caret-down dropdown-caret"></i>
+              </div>
+              <ul class="dropdown-list container-header-navigation-dropdown-list">
+                <li class="dropdown-item container-header-navigation-dropdown-item" onclick="dangXuatAdmin()">
+                    <span class="dropdown-text container-header-navigation-dropdown-text" >Đăng xuất</span>
+                </li>
+              </ul>
+          </div>   
+        </div>
+      </div>
+
+    <div id="orderDetailContainer" onclick="hideOrderDetails(this)" style="display: none;">
+
+    </div>  
+      
+
+
+      <div class="container-content" id="container-content">
+        
+
+      </div>
+    </div>
+
+    
+  </div>  
+
+  
+  <!-- Back to top button -->
+  <div class="back-to-top">
+    <a class="" href="#"><i class="fa-solid fa-arrow-up back-top-top-icon"></i></a>
+  </div>
+
+  <!-- Java Script -->
+  <script src="./assets/js/Statistical.js"></script>
+  <script src="./assets/js/arr-order-form.js"></script>
+  <script src="./assets/js/arr-account.js"></script>
+  <script src="./assets/js/arr-product.js"></script>
+  <script src="./assets/js/menu-product-admin.js"></script>
+  <script src="./assets/js/backToHome-button.js"></script>
+  
+  <!-- <script src="../assets/js/navigation.js"></script> -->
+  <!-- <script src="../assets/js/search-engine.js"></script> -->
+ </body>
+</html>
